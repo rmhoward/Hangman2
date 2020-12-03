@@ -9,6 +9,7 @@ public class HangmanGame {
 	public static void main(String[] args) {
 		System.out.println("Crickets chirping.");
 		System.out.println("No game here yet, bub.");
+		System.out.println("Testing...");
 
 	}
 
