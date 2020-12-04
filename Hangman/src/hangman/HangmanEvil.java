@@ -68,6 +68,57 @@ public class HangmanEvil extends Hangman {
 			
 			return this.wordList;
 			}
+		/**
+		 * Locates Given letter in largest word group and mark as correctly identified letter.
+		 * Partititions the word list into word groups based on the position of the given letter
+		 * or if it can't be found Gets the largest of these word groups and sets that to the word
+		 * list.
+		 * @param letter to search for
+		 * @return true if letter was found an d marked
+ 		 */
+
+		@Override
+		public boolean findAndMarkLetter(String letter) {
+			boolean foundLetter = false;
+
+			//if letter is not single character, ignore
+			if (letter.length() != 1) return foundLetter;
+
+			//convert to lowercase
+			letter = letter.toLowerCase();
+
+			for (int = 0; i <= this.word.length() - 1; i++) {
+				if (letter.equals(largestWordGroupKey.charAt(i) + "")) {
+					foundLetter = true;
+				}
+			}
+			//if letter wasn't found
+			if (!foundLetter) {
+				//add to list of incorrect guesses
+				if(!this.incorrectGuesses.contains(letter)) {
+					this.incorrectGuesses.add(letter);
+				}
+			}
+			//increment number of guesses
+			this.guessCount++
+
+			return foundLetter;
 		}
+
+		/**
+		 * Partitions the word list into word groups based on the position
+		 * of the given letter, of or it can't be found.
+		 * @param letter to search for and partition on
+		 * @return the key of the largest word group
+		 */
+		private String partitionByLetter(String letter) {
+			//to store word groups
+			TreeMap<String, ArrayList<String>> wordGroups = new TreeMap<String, ArrayList<String>>();
+
+			//to generate key for word groups
+			StringBuilder keySb;
+
+		}
+
 	}
 }
