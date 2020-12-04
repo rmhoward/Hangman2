@@ -100,7 +100,7 @@ public class HangmanEvil extends Hangman {
 				}
 			}
 			//increment number of guesses
-			this.guessCount++
+			this.guessCount++;
 
 			return foundLetter;
 		}
@@ -117,6 +117,13 @@ public class HangmanEvil extends Hangman {
 
 			//to generate key for word groups
 			StringBuilder keySb;
+
+			//iterate over list of words in list
+			for (String w : this.wordList) {
+
+				//create key based on currently selected letters
+
+			}
 
 		}
 

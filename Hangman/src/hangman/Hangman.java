@@ -24,12 +24,12 @@ public class Hangman {
 	/**
 	 * Correctly indentified letters in current word, otherwise "_".
 	 */
-	public ArrayList<String> correctLetters:
+	public ArrayList<String> correctLetters;
 		
 	/**
 	 * total number of guesses.
 	 */
-	public int guessCount
+	public int guessCount;
 
 	/**
 	 * List incorrectly guessed letters.
