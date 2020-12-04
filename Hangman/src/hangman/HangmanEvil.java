@@ -1,7 +1,9 @@
 package hangman;
 
-import java.io.File
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.TreeMap;
 
 /**
  * Evil version of Hangman
@@ -30,7 +32,7 @@ public class HangmanEvil extends Hangman {
 		int randInt = random.nextInt(this.wordList.size());
 		this.word = this.wordList.get(randInt).toLowerCase();
 		
-		this.word = "":
+		this.word = "";
 		this.correctLetters = new ArrayList<String>(givenWord.length());
 		for (int i = 0; i < givenWord.length(); i++) {
 			this.word += Hangman.HIDDEN_LETTER_CHAR;
@@ -41,7 +43,7 @@ public class HangmanEvil extends Hangman {
 		this.partitionByLength(this.word.length());
 		
 		return this.pickWord(givenWord);
-		
+	}
 		/**
 		 * Filters the word list based on the given word length
 		 * @param selectedWordLength to filter words
@@ -67,10 +69,10 @@ public class HangmanEvil extends Hangman {
 			this.wordList = new ArrayList<String>(wordList);
 			
 			return this.wordList;
-			}
+		}
 		/**
 		 * Locates Given letter in largest word group and mark as correctly identified letter.
-		 * Partititions the word list into word groups based on the position of the given letter
+		 * Partitions the word list into word groups based on the position of the given letter
 		 * or if it can't be found Gets the largest of these word groups and sets that to the word
 		 * list.
 		 * @param letter to search for
@@ -87,7 +89,7 @@ public class HangmanEvil extends Hangman {
 			//convert to lowercase
 			letter = letter.toLowerCase();
 
-			for (int = 0; i <= this.word.length() - 1; i++) {
+			for (int i = 0; i <= this.word.length() - 1; i++) {
 				if (letter.equals(largestWordGroupKey.charAt(i) + "")) {
 					foundLetter = true;
 				}
@@ -127,5 +129,23 @@ public class HangmanEvil extends Hangman {
 
 		}
 
+		//NOTE: NOT SURE IF THIS IS RIGHT YET: SIMPLY COPY AND PASTED FROM HANGMAN TRADITIONAL
+		@Override
+		public String pickWord() {
+			//get random word
+			Random random = new Random();
+			int randInt = random.nextInt(this.wordList.size());
+			this.word = this.wordList.get(randInt).toLowerCase();
+			
+			//set correctly identified letters of word
+			//default to "_"
+			this.correctLetters = new ArrayList<String>(this.word.length());
+			for (int i = 0; i < this.word.length(); i++) {
+				this.correctLetters.add(Hangman.HIDDEN_LETTER_CHAR);
+		}
+		
+		return this.word;
 	}
+
+	
 }
