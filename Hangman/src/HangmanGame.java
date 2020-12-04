@@ -1,4 +1,8 @@
-import java.util.ArrayList
+import java.util.ArrayList;
+
+
+import dictionary.DictionaryReader;
+
 
 /**
  * All functionality for the hangman game included here.
@@ -38,6 +42,24 @@ public class HangmanGame {
 		System.out.println("This looks different");
 
 		System.out.println("Testing...");
+		
+		//name of file to read
+		//WARNING, THIS IS READING IN THE FULL WORD FILE. IT MAY TAKE TIME TO LOAD IT ALL.
+		//IF YOU WANT TO TEST EARLY FUNCTIONALITY, COMMENT THIS OUT AND UNCOMMENT THE NEXT LINE
+		String fileName = "words.txt";
+		
+		//UNCOMMENT THIS FOR FASTER CHECKING
+//		String fileName = "words_clean.txt";
+		
+
+		ArrayList<String> words = DictionaryReader.readWordsFromDictionary(fileName);
+		
+		System.out.println(words);
+		
+		System.out.println(words.get(0));
+
+		
+		
 	}
 
 }
