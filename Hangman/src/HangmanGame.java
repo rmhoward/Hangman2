@@ -1,8 +1,6 @@
-import java.util.ArrayList;
-
-
-import dictionary.DictionaryReader;
-
+import java.util.ArrayList
+import java.util.Scanner;
+import java.util.regex.Pattern;
 
 /**
  * All functionality for the hangman game included here.
@@ -19,7 +17,7 @@ public class HangmanGame {
 	 */
 	private void playGame(String fileName) {
 		
-		//create hangman directory
+		//create hangman directory -WE NEED TO CHANGE TO DICTIONARY REAADER
 		ArrayList<String> wordList = HangmanDictionaryReader.readDictionary(fileName);
 		
 		boolean gameOver = false;
@@ -29,12 +27,65 @@ public class HangmanGame {
 			
 			Hangman hangman = this.getHanmanVersion(wordlist);
 			
+			System.out.println("Welcome to Hangman!")
+			
+			this.playGame(hangman, scanner);
+			
 			System.out.println("Play again? Y/N");
+			String choice = scanner.nextLine();
+			if (choice.equalsIgnoreCase("N")) {
+			}
+			}
 		}
 		
 	}
 	
+	//Block of code occures around line 55
+
+	private Hangman getHangmanVersion(ArrayList<String> wordList) {
+		
+		//randomly determine which version to play
+		boolean game = new Random().nextBoolean();
+		Hangman hangman = game ? new HangmanTraditional(wordlist)
+					: new HangmanEvil(wordList);
+		
+			return hangman;
+	}
 	
+	/**
+	 * Play a single game of the given hangman
+	 * @param hangman to play
+	 * @param scanner for user input
+	 */
+	private void playGame(Hangman hangman, Scanner scanner) {
+
+		boolean gameWon = false;
+		String chosenLetter
+		
+		hangman.pickWord();
+		
+		this.printRound(hangman, "Guess a letter");
+		
+		while(!gameWon) {
+			if (scanner.hasNext()) {
+				chosenLetter = scanner.nextLine();
+				chosenLetter = chosenLetter.trim();
+				
+				if (chosenLetter.length() != 1
+					|| !Pattern.matches("[a-z]",  chosenLetter)) {
+				this.printRound(hangman, "Please guess a single lower-case letter.");
+				} else {
+					if (hangman.guessed(chosenLetter)) {
+						System.out.println("You already guessed that letter!");
+					} else {
+						hangman.findAndMarkLetter(chosenLetter);
+					}
+					
+					gameWon = hangman.checkLetters();
+					
+					if (gameWon) {
+				}
+			}
 	public static void main(String[] args) {
 		System.out.println("Crickets chirping.");
 		System.out.println("No game here yet, bub.");
@@ -42,24 +93,7 @@ public class HangmanGame {
 		System.out.println("This looks different");
 
 		System.out.println("Testing...");
-		
-		//name of file to read
-		//WARNING, THIS IS READING IN THE FULL WORD FILE. IT MAY TAKE TIME TO LOAD IT ALL.
-		//IF YOU WANT TO TEST EARLY FUNCTIONALITY, COMMENT THIS OUT AND UNCOMMENT THE NEXT LINE
-		String fileName = "words.txt";
-		
-		//UNCOMMENT THIS FOR FASTER CHECKING
-//		String fileName = "words_clean.txt";
-		
-
-		ArrayList<String> words = DictionaryReader.readWordsFromDictionary(fileName);
-		
-		System.out.println(words);
-		
-		System.out.println(words.get(0));
-
-		
-		
 	}
 
 }
+
