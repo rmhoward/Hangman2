@@ -1,9 +1,10 @@
 package hangman;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
- * Tditional version of Hangman.
+ * Traditional version of Hangman.
  * @author ...
  * 
  */
@@ -34,15 +35,15 @@ public class HangmanTraditional extends Hangman {
 		//default to "_"
 		this.correctLetters = new ArrayList<String>(this.word.length());
 		for (int i = 0; i < this.word.length(); i++) {
-			this.correctLetters.add(Hangman.HIDDEN_LETTER_CHAR)
+			this.correctLetters.add(Hangman.HIDDEN_LETTER_CHAR);
 	}
 	
-	return this.word
+	return this.word;
 }
 	/**
 	 * Locate given letter in current word and mark as 
 	 * correctly identified letter.
-	 * @param letter to sdearch for
+	 * @param letter to search for
 	 * @return true if letter was found and marked otherwise false
 	 */
 	@Override
@@ -57,9 +58,9 @@ public class HangmanTraditional extends Hangman {
 		
 		for (int i = 0; i <= this.word.length() -1; i++ ) {
 			if (letter.equals(this.word.charAt(i) + "")) {
-				//every position letter is located, mark as correctly identified letter
+				//every position letter xis located, mark as correctly identified letter
 				this.correctLetters.set(i, letter);
-				foundLetter = true:
+				foundLetter = true;
 			}
 		}
 		
