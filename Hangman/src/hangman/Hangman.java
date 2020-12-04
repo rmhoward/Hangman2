@@ -113,6 +113,10 @@ public class Hangman {
 	 }
 	 
 	 /**
-	  * 
+	  * For deugging only
+	  * Prints the current word list.
 	  */
+	 public void printWordList() {
+		 System.out.println("word list: " + this.wordList);
+	 }
 	}
