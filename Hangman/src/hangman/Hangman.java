@@ -6,44 +6,32 @@ import java.util.ArrayList;
  */
 public abstract class Hangman {
 	
-	/**
-	 * Character displayed for a hidden single letter of current word.
-	 */
+	//character displayed for any hidden character
 	public static final String HIDDEN_LETTER_CHAR = "_";
 	
-	/**
-	 * Stores list of all words
-	 */
+	//Arraylist used for the wordlist
 	public ArrayList<String> wordList = new ArrayList<String>();
 	
-	/**
-	 * Current word
-	 */
+	//current word
 	public String word;
 	
-	/**
-	 * Correctly identified letters in current word, otherwise "_".
-	 */
+	//arraylist of correctly identified words - if not yet identified will simply show "_"
 	public ArrayList<String> correctLetters;
 		
-	/**
-	 * total number of guesses.
-	 */
+	//total number of guesses
 	public int guessCount;
 
-	/**
-	 * List incorrectly guessed letters.
-	 */
+	//list of incorrectly guessed letters
 	public ArrayList<String> incorrectGuesses = new ArrayList<String>();
 	
 	/**
-	 * Method for initially selecting a word in a game.
+	 * Abstract method for initially selecting a word in a game.
 	 * @return Selected word
 	 */
 	abstract public String pickWord();
 	
 	/**
-	 * Locate given letter and marked as correctly identified letter
+	 * Locate a given letter (or letters) in a word and mark them as correctly identified
 	 * @param letter to search for
 	 * @return true if letter was found and marked, otherwise false
 	 * 
@@ -77,10 +65,9 @@ public abstract class Hangman {
 		return this.guessedIncorrectly(letter) || this.guessedCorrectly(letter);
 	}
 	
-	
-	
+
 	/**
-	 * determines if every letter of the random word has been guessed correctly. 
+	 * Determines if every letter of the random word has been guessed correctly. 
 	 * Checks the letters guessed by the user against the letters of the random word. 
 	 * @return true if every letter has been guessed
 	 */
@@ -99,7 +86,7 @@ public abstract class Hangman {
 	}
 	
 	/**
-	 * Returns the total number of guesses
+	 * prints the total number of guesses
 	 * @return number of guesses
 	 */
 	public int getNumberGuesses() {
@@ -107,14 +94,14 @@ public abstract class Hangman {
 	}
 	
 	/**
-	 * Returns the number of incorrect guesses.
+	 * prints the number of incorrect guesses.
 	 * @return number of incorrect guesses.
 	 */
 	 public int getNumberIncorrectGuesses() {
 		 return this.getNumberIncorrectGuesses();
 		}
 	 /**
-	  * For debugging only
+	  * debug method
 	  * Prints the current word.
 	  */
 	 public void printWord() {
@@ -122,7 +109,7 @@ public abstract class Hangman {
 	 }
 	 
 	 /**
-	  * For debugging only
+	  * debug method
 	  * Prints the current word list.
 	  */
 	 public void printWordList() {
