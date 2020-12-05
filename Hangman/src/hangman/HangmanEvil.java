@@ -1,6 +1,5 @@
 package hangman;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.TreeMap;
@@ -12,18 +11,17 @@ import java.util.TreeMap;
 public class HangmanEvil extends Hangman {
 
 	/**
-	 * Create instance of evil hangman with a given list of words.
-	 * @param wordlist list of words
+	 * Create instance of evil hangman
+	 * @param wordlist pf wprds
 	 */
 	public HangmanEvil(ArrayList<String> wordList) {
 		this.wordList = wordList;
 	}
 	
 	/**
-	 * Takes a given word and 
-	 * sets the length of the word for Evil Hangman
+	 * Takes a given word and sets the length of the word for Evil Hangman
 	 * @param givenWord to use for the game.
-	 * @return Selected word represented by "_" String characters.
+	 * @return Selected word, however represented by "_" during the actual game
 	 */
 	public String pickWord(String givenWord) {
 		
@@ -32,7 +30,7 @@ public class HangmanEvil extends Hangman {
 		int randInt = random.nextInt(this.wordList.size());
 		this.word = this.wordList.get(randInt).toLowerCase();
 		
-		this.word = "";
+//		this.word = "";
 		this.correctLetters = new ArrayList<String>(givenWord.length());
 		for (int i = 0; i < givenWord.length(); i++) {
 			this.word += Hangman.HIDDEN_LETTER_CHAR;
@@ -52,6 +50,7 @@ public class HangmanEvil extends Hangman {
 		private ArrayList<String> partitionByLength(int selectedWordLength) {
 			
 			int wordLength;
+			
 			ArrayList<String> wordList = new ArrayList<String>();
 			
 			//for each word in word list
@@ -78,7 +77,6 @@ public class HangmanEvil extends Hangman {
 		 * @param letter to search for
 		 * @return true if letter was found an d marked
  		 */
-
 		@Override
 		public boolean findAndMarkLetter(String letter) {
 			boolean foundLetter = false;
@@ -89,8 +87,8 @@ public class HangmanEvil extends Hangman {
 			//convert to lowercase
 			letter = letter.toLowerCase();
 
-			for (int i = 0; i <= this.word.length() - 1; i++) {
-				if (letter.equals(largestWordGroupKey.charAt(i) + "")) {
+			for (int i = 0; i < this.word.length(); i++) {
+				if (letter.equals(this.word.charAt(i) + "")) {
 					foundLetter = true;
 				}
 			}
@@ -103,29 +101,49 @@ public class HangmanEvil extends Hangman {
 			}
 			//increment number of guesses
 			this.guessCount++;
-
+			
+			//return true or false based on whether the letter was found or not
 			return foundLetter;
 		}
 
 		/**
-		 * Partitions the word list into word groups based on the position
-		 * of the given letter, of or it can't be found.
+		 * Partitions the word list into word groups based on the position of the given letter, or it can't be found.
 		 * @param letter to search for and partition on
 		 * @return the key of the largest word group
 		 */
 		private String partitionByLetter(String letter) {
+			
 			//to store word groups
 			TreeMap<String, ArrayList<String>> wordGroups = new TreeMap<String, ArrayList<String>>();
 
 			//to generate key for word groups
-			StringBuilder keySb;
+			StringBuilder keySb = new StringBuilder();
+			
+			
+			//EVERYTHING BELOW HERE IS BEN'S NOTES-----
+			//use StringBuilder to iterate through correctLetters
+			
+			
+			//save the key and value of correctLetters
+			//will add all "_"
+			
+			
 
 			//iterate over list of words in list
 			for (String w : this.wordList) {
 
 				//create key based on currently selected letters
+				
+				
+				//run through the word and create a key:value for it
+				
+				
+				//iterate through correctLetter key:value and this key:value.
+				//If every value that is NOT a "_" is the same, will add to an arrayList for output.
 
+				
 			}
+			
 
 		}
 
