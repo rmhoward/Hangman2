@@ -14,6 +14,8 @@ import java.util.regex.Pattern;
  * @author ---UPDATE THIS---
  */
 public class HangmanGame {
+	
+	int version = 0;
 
 	/**
 	 * Method which returns a version of hangman to play randomly
@@ -24,6 +26,11 @@ public class HangmanGame {
 		
 		//randomly determine which version to play
 		boolean game = new Random().nextBoolean();
+		
+		if (game) {
+			version = 1;
+		}
+		
 		Hangman hangman = game ? new HangmanTraditional(wordList)
 					: new HangmanEvil(wordList);
 		
@@ -80,35 +87,68 @@ public class HangmanGame {
 		
 		hangman.pickWord();
 		
-		//I'M REALLY NOT SURE WHAT THIS DOES - Ben
 		this.printRound(hangman, "Guess a letter");
 		
-		while(!gameWon) {
-			if (scanner.hasNext()) {
-				chosenLetter = scanner.nextLine();
-				chosenLetter = chosenLetter.trim();
-				
-				if (chosenLetter.length() != 1
-					|| !Pattern.matches("[a-z]",  chosenLetter)) {
-				this.printRound(hangman, "Please guess a single lower-case letter.");
-				} else {
-					if (hangman.guessed(chosenLetter)) {
-						System.out.println("You already guessed that letter!");
+		if (version == 1) {
+			while(!gameWon) {
+				if (scanner.hasNext()) {
+					chosenLetter = scanner.nextLine();
+					chosenLetter = chosenLetter.trim();
+					
+					if (chosenLetter.length() != 1
+						|| !Pattern.matches("[a-z]",  chosenLetter)) {
+					this.printRound(hangman, "Please guess a single lower-case letter.");
 					} else {
-						hangman.findAndMarkLetter(chosenLetter);
+						if (hangman.guessed(chosenLetter)) {
+							System.out.println("You already guessed that letter!");
+						} else {
+							hangman.findAndMarkLetter(chosenLetter);
+						}
+						
+						gameWon = hangman.checkLetters();
+						
+						if (gameWon) {
+							System.out.println("You guessed the word correctly!");
+							//TODO: print the version of hangman that the player was playing
+						} else {
+							this.printRound(hangman, "Guess a letter");
+						}
 					}
+				}
+			}
+		} else {
+			
+			while(!gameWon) {
+				if (scanner.hasNext()) {
+					chosenLetter = scanner.nextLine();
+					chosenLetter = chosenLetter.trim();
 					
-					gameWon = hangman.checkLetters();
-					
-					if (gameWon) {
-						System.out.println("You guessed the word correctly!");
-						//TODO: print the version of hangman that the player was playing
+					if (chosenLetter.length() != 1
+						|| !Pattern.matches("[a-z]",  chosenLetter)) {
+					this.printRound(hangman, "Please guess a single lower-case letter.");
 					} else {
-						this.printRound(hangman, "Guess a letter");
+						if (hangman.guessed(chosenLetter)) {
+							System.out.println("You already guessed that letter!");
+						} else {
+							hangman.findAndMarkLetter(chosenLetter);
+						}
+						
+						gameWon = hangman.checkLetters();
+						
+						if (gameWon) {
+							System.out.println("You guessed the word correctly!");
+							//TODO: print the version of hangman that the player was playing
+						} else {
+							this.printRound(hangman, "Guess a letter");
+						}
+						
+						hangman.pickWord(hangman.word);
 					}
 				}
 			}
 		}
+		
+		
 	}
 
 	/**

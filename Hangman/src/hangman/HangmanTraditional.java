@@ -80,4 +80,15 @@ public class HangmanTraditional extends Hangman {
 		return foundLetter;
 		
 		}
+
+	/**
+	 * WILL NOT BE USED, AS TRADITIONAL HANGMAN ONLY PICKS A WORD ONCE
+	 * added for implementation reasons in hangmanGame
+	 */
+	@Override
+	public String pickWord(String givenWord) {
+		return null;
+	}
+	
+	
 	}
