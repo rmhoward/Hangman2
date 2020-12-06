@@ -4,47 +4,34 @@ import java.util.ArrayList;
 /**
  * Defines functionality for different versions of Hangman.
  */
-public class Hangman {
+public abstract class Hangman {
 	
-	/**
-	 * Character displayed for a hidden single letter of current word.
-	 */
+	//character displayed for any hidden character
 	public static final String HIDDEN_LETTER_CHAR = "_";
 	
-	/**
-	 * Stores list of all words
-	 */
+	//Arraylist used for the wordlist
 	public ArrayList<String> wordList = new ArrayList<String>();
 	
-	/**
-	 * Current word
-	 */
+	//current word
 	public String word;
 	
-	/**
-	 * Correctly indentified letters in current word, otherwise "_".
-	 */
+	//arraylist of correctly identified words - if not yet identified will simply show "_"
 	public ArrayList<String> correctLetters;
 		
-	/**
-	 * total number of guesses.
-	 */
+	//total number of guesses
 	public int guessCount;
 
-	/**
-	 * List incorrectly guessed letters.
-	 * 
-	 */
-	public ArrayList<String> incorrectGusses = new ArrayList<String>();
+	//list of incorrectly guessed letters
+	public ArrayList<String> incorrectGuesses = new ArrayList<String>();
 	
 	/**
-	 * Method for initially selecting a word in a game.
+	 * Abstract method for initially selecting a word in a game.
 	 * @return Selected word
 	 */
 	abstract public String pickWord();
 	
 	/**
-	 * Locate given letter and marke as correctly identified letter
+	 * Locate a given letter (or letters) in a word and mark them as correctly identified
 	 * @param letter to search for
 	 * @return true if letter was found and marked, otherwise false
 	 * 
@@ -52,7 +39,25 @@ public class Hangman {
 	abstract public boolean findAndMarkLetter(String letter);
 	
 	/**
-	 * Returns true if the given letter has been gussed (correctly or incorrectly).
+	 * Returns true if the given letter has been guessed and was incorrect/
+	 * @param letter that was guessed
+	 * @return true if letter was guessed as incorrect guess
+	 */
+	private boolean guessedIncorrectly(String letter) {
+		return this.incorrectGuesses.contains(letter);
+	}
+	
+	/**
+	 * Returns true if the given letter is contained in the correct letters array
+	 * @param letter that was guessed
+	 * @return true if letter that was guessed is in the correct letters
+	 */
+	private boolean guessedCorrectly(String letter) {
+		return this.correctLetters.contains(letter);
+	}
+	
+	/**
+	 * Returns true if the given letter has been guessed (correctly or incorrectly).
 	 * @param letter that was guessed
 	 * @return true if letter was guessed
 	 */
@@ -60,24 +65,15 @@ public class Hangman {
 		return this.guessedIncorrectly(letter) || this.guessedCorrectly(letter);
 	}
 	
+
 	/**
-	 * Returns true if the givern letter has been guessed and was incorrect/
-	 * @param letter that was guessed
-	 * @return true if letterwas guessed as incorrect guess
-	 */
-	
-	private boolean guessedIncorrectly(String letter) {
-		return this.incorrectGuesses.contains(letter);
-	}
-	
-	/**
-	 * determines if every letter of the random word has been guessed correctly. 
+	 * Determines if every letter of the random word has been guessed correctly. 
 	 * Checks the letters guessed by the user against the letters of the random word. 
 	 * @return true if every letter has been guessed
 	 */
 	
 	public boolean checkLetters() {
-		boolean lettersAllCheck = True;
+		boolean lettersAllCheck = true;
 		for (int i = 0; i < this.correctLetters.size(); i++) {
 			String correctLetter = this.correctLetters.get(i);
 			if (Hangman.HIDDEN_LETTER_CHAR.equals(correctLetter)) {
@@ -90,7 +86,7 @@ public class Hangman {
 	}
 	
 	/**
-	 * Returns the total number of guesses
+	 * prints the total number of guesses
 	 * @return number of guesses
 	 */
 	public int getNumberGuesses() {
@@ -98,14 +94,14 @@ public class Hangman {
 	}
 	
 	/**
-	 * Returns the number of incorrect guesses.
+	 * prints the number of incorrect guesses.
 	 * @return number of incorrect guesses.
 	 */
 	 public int getNumberIncorrectGuesses() {
-		 return this.getNumberIncorrectGuesses().size();
+		 return this.getNumberIncorrectGuesses();
 		}
 	 /**
-	  * For debugging only
+	  * debug method
 	  * Prints the current word.
 	  */
 	 public void printWord() {
@@ -113,7 +109,7 @@ public class Hangman {
 	 }
 	 
 	 /**
-	  * For deugging only
+	  * debug method
 	  * Prints the current word list.
 	  */
 	 public void printWordList() {
