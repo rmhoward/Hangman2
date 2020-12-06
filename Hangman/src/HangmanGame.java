@@ -49,15 +49,18 @@ public class HangmanGame {
 			Hangman hangman = this.getHangmanVersion(wordList);
 			
 			System.out.println("Welcome to Hangman!");
+			System.out.println("In this game, you will attempt to guess a word letter-by-letter");
+			System.out.println("The computer will choose the word. Good luck!");
 			
 			this.playGame(hangman, scanner);
 			
 			System.out.println("Play again? Y/N");
 			String choice = scanner.nextLine();
-			if (choice.equalsIgnoreCase("N")) {
-				gameOver = false;
-			} else {
+			choice = choice.toLowerCase();
+			if (choice.startsWith("n")) {
 				gameOver = true;
+			} else {
+				gameOver = false;
 			}
 		}
 	}
@@ -99,7 +102,6 @@ public class HangmanGame {
 					
 					if (gameWon) {
 						System.out.println("You guessed the word correctly!");
-						this.printRound(hangman);
 						//TODO: print the version of hangman that the player was playing
 					} else {
 						this.printRound(hangman, "Guess a letter");
@@ -113,8 +115,22 @@ public class HangmanGame {
 	 * Prints information about the current round of the given game of hangman
  	 * @param hangman game for round
 	 */
-	private void printRound(Hangman hangman) {
-		this.printRound(hangman, "");
+	private void printRound(Hangman hangman, String message) {
+		System.out.println("Game status:");
+		System.out.println(hangman.correctLetters);
+		System.out.println("Number of guesses: " + hangman.getNumberGuesses());
+		System.out.println("Guessed letters:");
+		System.out.println(hangman.incorrectGuesses);
+		System.out.println();
+		
+		hangman.printWord();
+		
+		//DO NOT USE THIS DEBUG: WILL STALL THE GAME
+//		hangman.printWordList();
+		
+		System.out.println(message);
+		
+		
 	}
 
 
@@ -123,7 +139,10 @@ public class HangmanGame {
 		String wordsClean = "words_clean.txt";
 		String words = "words.txt";
 		HangmanGame hangmanGame = new HangmanGame();
-		hangmanGame.playGame(wordsClean);
+		
+		//IF YOU WANT TO PLAY THE GAME WITH A SMALLER LIST - UNCOMMENT THIS/COMMENT OUT LOWER LINE:
+//		hangmanGame.playGame(wordsClean);
+		
 		hangmanGame.playGame(words);
 	}
 
