@@ -1,19 +1,19 @@
-package hangman;
+//package hangman;
 
-import static org.junit.jupiter.api.Assertions.*;
+//import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+//import org.junit.jupiter.api.BeforeEach;
+//import org.junit.jupiter.api.Test;
 
-class TestHangman {
+//class TestHangman {
 
-	@BeforeEach
-	void setUp() throws Exception {
-	}
+//	@BeforeEach
+//	void setUp() throws Exception {
+//	}
 
-	@Test
-	void test() {
-		fail("Not yet implemented"); // TODO
-	}
+//	@Test
+//	void test() {
+//		fail("Not yet implemented"); // TODO
+//	}
 
-}
+/}

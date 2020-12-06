@@ -1,3 +1,5 @@
+package hangman;
+
 import dictionary.DictionaryReader;
 import hangman.Hangman;
 import hangman.HangmanEvil;
