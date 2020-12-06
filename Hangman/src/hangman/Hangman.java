@@ -15,7 +15,7 @@ public abstract class Hangman {
 	//current word
 	public String word;
 	
-	//arraylist of correctly identified words - if not yet identified will simply show "_"
+	//arraylist of correctly identified letters - if not yet identified will simply show "_"
 	public ArrayList<String> correctLetters;
 		
 	//total number of guesses

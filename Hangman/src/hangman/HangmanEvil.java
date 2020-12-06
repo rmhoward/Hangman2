@@ -133,7 +133,6 @@ public class HangmanEvil extends Hangman {
 			//create a key based on the letters that are currently selected
 			keySb = this.getKeySb(this.correctLetters);
 
-
 			//compare the letter guessed by the user to each letter in the word
 			for (int i = 0; i <= w.length() - 1; i++) {
 				if (letter.equals(w.charAt(i) + "")) {
@@ -161,7 +160,7 @@ public class HangmanEvil extends Hangman {
 	//THIS IS STUDENT WORK FROM 12.5 OH @65:46. VERY EVIL.
 
 	/**
-	 * this updates the world list to the largest word group
+	 * this updates the word list to the largest word group
 	 *
 	 * @param wordGroups
 	 * @return the key of the largest word group
@@ -170,57 +169,49 @@ public class HangmanEvil extends Hangman {
 		//look at all groups and iterate over treemap
 		//list of words per key + size
 		int maxSize = 0;
-		String maxKey = null;
+		String maxKey = "";
 
 		for (String key : wordGroups.keySet()) {
-			int listSize = wordGroups.get((key).size());
+			int listSize = wordGroups.get(key).size();
 			if (listSize > maxSize) {
 				maxSize = listSize;
 				maxKey = key;
 			}
-
-			return maxKey;
 		}
-
+		return maxKey;
 	}
 
-}
-
-			//EVERYTHING BELOW HERE IS BEN'S NOTES-----
-			//use StringBuilder to iterate through correctLetters
-			
-			
-			//save the key and value of correctLetters
-			//will add all "_"
-			
-			
-
-
-
-				//create key based on currently selected letters
-				
-				
-				//run through the word and create a key:value for it
-				
-				
-				//iterate through correctLetter key:value and this key:value.
-				//If every value that is NOT a "_" is the same, will add to an arrayList for output.
-
+	/**
+	 * NOT SURE IF THIS IS RIGHT:
+	 * Getter for the StringBuilder KeySb
+	 * @param correctLetters to output
+	 * @return correct letters
+	 */
+	private StringBuilder getKeySb(ArrayList<String> correctLetters) {
+		
+		StringBuilder outString = new StringBuilder();
+		
+		for (String s: correctLetters) {
+			outString.append(s);
+		}
+		
+		return outString;
+	}
 				
 
-		//NOTE: NOT SURE IF THIS IS RIGHT YET: SIMPLY COPY AND PASTED FROM HANGMAN TRADITIONAL
-		@Override
-		public String pickWord() {
-			//get random word
-			Random random = new Random();
-			int randInt = random.nextInt(this.wordList.size());
-			this.word = this.wordList.get(randInt).toLowerCase();
+	//NOTE: NOT SURE IF THIS IS RIGHT YET: SIMPLY COPY AND PASTED FROM HANGMAN TRADITIONAL
+	@Override
+	public String pickWord() {
+		//get random word
+		Random random = new Random();
+		int randInt = random.nextInt(this.wordList.size());
+		this.word = this.wordList.get(randInt).toLowerCase();
 			
-			//set correctly identified letters of word
-			//default to "_"
-			this.correctLetters = new ArrayList<String>(this.word.length());
-			for (int i = 0; i < this.word.length(); i++) {
-				this.correctLetters.add(Hangman.HIDDEN_LETTER_CHAR);
+		//set correctly identified letters of word
+		//default to "_"
+		this.correctLetters = new ArrayList<String>(this.word.length());
+		for (int i = 0; i < this.word.length(); i++) {
+			this.correctLetters.add(Hangman.HIDDEN_LETTER_CHAR);
 		}
 		
 		return this.word;
