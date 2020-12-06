@@ -115,4 +115,12 @@ public abstract class Hangman {
 	 public void printWordList() {
 		 System.out.println("word list: " + this.wordList);
 	 }
+
+	/**
+	 * Takes a given word and sets the length of the word for Evil Hangman
+	 *
+	 * @param givenWord to use for the game.
+	 * @return Selected word, however represented by "_" during the actual game
+	 */
+	public abstract String pickWord(String givenWord);
 	}
