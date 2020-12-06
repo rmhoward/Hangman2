@@ -1,5 +1,3 @@
-package hangman;
-
 import dictionary.DictionaryReader;
 import hangman.Hangman;
 import hangman.HangmanEvil;
@@ -100,21 +98,33 @@ public class HangmanGame {
 					gameWon = hangman.checkLetters();
 					
 					if (gameWon) {
-						System.out.println("placeholder");
+						System.out.println("You guessed the word correctly!");
+						this.printRound(hangman);
+						//TODO: print the version of hangman that the player was playing
+					} else {
+						this.printRound(hangman, "Guess a letter");
 					}
 				}
 			}
 		}
 	}
-		
-		
-	public static void main(String[] args) {
-		System.out.println("Crickets chirping.");
-		System.out.println("No game here yet, bub.");
-    
-		System.out.println("This looks different");
 
-		System.out.println("Testing...");
+	/**
+	 * Prints information about the current round of the given game of hangman
+ 	 * @param hangman game for round
+	 */
+	private void printRound(Hangman hangman) {
+		this.printRound(hangman, "");
+	}
+
+
+
+	public static void main(String[] args) {
+		String wordsClean = "words_clean.txt";
+		String words = "words.txt";
+		HangmanGame hangmanGame = new HangmanGame();
+		hangmanGame.playGame(wordsClean);
+		hangmanGame.playGame(words);
 	}
 
 }
