@@ -44,7 +44,9 @@ public class HangmanEvil extends Hangman {
 		}
 
 		//partition word list by length of the selected word
-		this.partitionByLength(this.word.length());
+		
+		
+		this.partitionByLetter(this.word);
 
 		return this.word;
 	}
@@ -243,6 +245,14 @@ public class HangmanEvil extends Hangman {
 		//list of words per key + size
 		int maxSize = 0;
 		String maxKey = "";
+		
+		
+		ArrayList<String> maxList = new ArrayList<String>();
+		
+		//Storing possible target word groups temporarily
+		ArrayList<String> pGroup = new ArrayList<String>();
+		
+		
 
 		for (String key : wordGroups.keySet()) {
 			int listSize = wordGroups.get(key).size();
@@ -252,13 +262,16 @@ public class HangmanEvil extends Hangman {
 			}
 		}
 		
+//		ArrayList<String> maxWordGroupKey = wordGroups.get(maxKey);
+//		
+//		this.correctLetters = new ArrayList<String>(Arrays.asList(wordGroups.get(maxKey)).split("")));
+		
 		this.wordList = wordGroups.get(maxKey);
 		
 		return maxKey;
 	}
 
 	/**
-	 * NOT SURE IF THIS IS RIGHT:
 	 * Getter for the StringBuilder KeySb
 	 * @param correctLetters to output
 	 * @return correct letters
@@ -289,6 +302,8 @@ public class HangmanEvil extends Hangman {
 		for (int i = 0; i < this.word.length(); i++) {
 			this.correctLetters.add(Hangman.HIDDEN_LETTER_CHAR);
 		}
+		
+		this.partitionByLength(this.word.length());
 		
 		return this.word;
 	}
