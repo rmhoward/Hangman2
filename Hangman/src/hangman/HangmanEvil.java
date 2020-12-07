@@ -28,53 +28,74 @@ public class HangmanEvil extends Hangman {
 	 */
 	@Override
 	public String pickWord(String givenWord) {
-		
-		int count = 0;
 
-		//partition word list by length of the selected word
-		this.partitionByLength(this.word.length());
-		
-		for (int i = 0; i < this.correctLetters.size(); i++) {
-			if (this.correctLetters.get(i) != "_") {
-				count += 1;
-				
-				//I BELIEVE PROBLEMS ARE STEMMING FROM HERE AS WELL.
-				this.wordList = this.partitionByLetter(correctLetters.get(i));	
-			}
-		}
+		this.word = "";
 		
 		//get random word
 		Random random = new Random();
 		int randInt = random.nextInt(this.wordList.size());
 		this.word = this.wordList.get(randInt).toLowerCase();
+
 		
-		//if count of non "_" characters = the word, then pick a different word
-		boolean newWord = false;
-		
-		while(!newWord) {
-			ArrayList<String> wordCheck = new ArrayList<String>();
-			wordCheck = (ArrayList<String>) Arrays.asList(this.word);
-			
-			boolean charCheck = false;
-			
-			for (int j = 0; j < wordCheck.size(); j++) {
-				if (wordCheck.get(j) == this.wordList.get(j)) {
-					charCheck = true;
-				} else {
-					charCheck = false;
-				}
-			}
-			
-			if (charCheck == false) {
-				random = new Random();
-				randInt = random.nextInt(this.wordList.size());
-				this.word = this.wordList.get(randInt).toLowerCase();
-			} else {
-				newWord = true;
-				break;
-			}
-				
+		this.correctLetters = new ArrayList<String>(givenWord.length());
+		for (int i = 0; i < givenWord.length(); i++) {
+			this.word += Hangman.HIDDEN_LETTER_CHAR;
+			this.correctLetters.add(Hangman.HIDDEN_LETTER_CHAR);
 		}
+
+		//partition word list by length of the selected word
+		this.partitionByLength(this.word.length());
+
+		return this.word;
+	}
+//	public String pickWord(String givenWord) {
+//
+//		int count = 0;
+//		
+//		//partition word list by length of the selected word
+//		this.partitionByLength(this.word.length());
+//		
+//		for (int i = 0; i < this.correctLetters.size(); i++) {
+//			if (this.correctLetters.get(i) != "_") {
+//				count += 1;
+//				
+//				//I BELIEVE PROBLEMS ARE STEMMING FROM HERE AS WELL.
+//				this.partitionByLetter(correctLetters.get(i));	
+//			}
+//		}
+//		
+//		//get random word
+//		Random random = new Random();
+//		int randInt = random.nextInt(this.wordList.size());
+//		this.word = this.wordList.get(randInt).toLowerCase();
+//		
+//		//if count of non "_" characters = the word, then pick a different word
+//		boolean newWord = false;
+//		
+//		while(!newWord) {
+//			ArrayList<String> wordCheck = new ArrayList<String>();
+//			wordCheck = (ArrayList<String>) Arrays.asList(this.word);
+//			
+//			boolean charCheck = false;
+//			
+//			for (int j = 0; j < wordCheck.size(); j++) {
+//				if (wordCheck.get(j) == this.wordList.get(j)) {
+//					charCheck = true;
+//				} else {
+//					charCheck = false;
+//				}
+//			}
+//			
+//			if (charCheck == false) {
+//				random = new Random();
+//				randInt = random.nextInt(this.wordList.size());
+//				this.word = this.wordList.get(randInt).toLowerCase();
+//			} else {
+//				newWord = true;
+//				break;
+//			}
+//				
+//		}
 		
 		
 		//run through a loop until it finds a word that matches the letters in correctLetter
@@ -93,8 +114,8 @@ public class HangmanEvil extends Hangman {
 //		this.partitionByLength(this.word.length());
 		
 
-		return this.word;
-	}
+//		return this.word;
+//	}
 
 	/**
 	 * Filters the word list based on the given word length
@@ -115,8 +136,10 @@ public class HangmanEvil extends Hangman {
 			wordLength = word.length();
 
 			//only map words with the same length
-			if (wordLength != selectedWordLength)
+			if (wordLength != selectedWordLength) {
 				continue;
+			}
+				
 
 			wordList.add(word);
 		}
@@ -137,6 +160,7 @@ public class HangmanEvil extends Hangman {
 	@Override
 	public boolean findAndMarkLetter(String letter) {
 		boolean foundLetter = false;
+		
 
 		//if letter is not single character, ignore
 		if (letter.length() != 1)
@@ -171,9 +195,10 @@ public class HangmanEvil extends Hangman {
 	 * @param letter to search for and partition on
 	 * @return the key of the largest word group
 	 */
-	private ArrayList<String> partitionByLetter(String letter) {
+	private String partitionByLetter(String letter) {
 
 		//to store word groups
+
 		TreeMap<String, ArrayList<String>> wordGroups = new TreeMap<String, ArrayList<String>>();
 
 		//to generate key for word groups
@@ -193,27 +218,19 @@ public class HangmanEvil extends Hangman {
 
 			//add the word and list of words to a group
 			ArrayList<String> wList;
-			if (wordGroups.containsKey(keySb.toString())) {
-				wList = wordGroups.get(keySb.toString());
+			if (!wordGroups.containsKey(keySb.toString())) {
+				wList = new ArrayList<String>();
 				wList.add(w);
 				wordGroups.put(keySb.toString(), wList);
 			} else {
-				wList = new ArrayList<String>();
+				wList = wordGroups.get(keySb.toString());
 				wList.add(w);
 				wordGroups.replace(keySb.toString(), wList);
 			}
 		}
-		
-		//REVISIONS HERE -- I THINK THIS IS THE PROBLEM
-		String maxKey = this.updateWordList(wordGroups);
-		
-		ArrayList<String> outWordList = wordGroups.get(maxKey);
 		//update word list
-		return outWordList;
+		return this.updateWordList(wordGroups);
 	}
-
-
-	//THIS IS STUDENT WORK FROM 12.5 OH @65:46. VERY EVIL.
 
 	/**
 	 * this updates the word list to the largest word group
@@ -234,6 +251,9 @@ public class HangmanEvil extends Hangman {
 				maxKey = key;
 			}
 		}
+		
+		this.wordList = wordGroups.get(maxKey);
+		
 		return maxKey;
 	}
 
