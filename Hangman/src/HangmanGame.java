@@ -23,11 +23,17 @@ public class HangmanGame {
 	private Hangman getHangmanVersion(ArrayList<String> wordList) {
 		
 		//randomly determine which version to play
-		boolean game = new Random().nextBoolean();
-		Hangman hangman = game ? new HangmanTraditional(wordList)
-					: new HangmanEvil(wordList);
+		Random rand = new Random();
 		
-		return hangman;
+		boolean game = rand.nextBoolean();
+		
+		if (game) {
+			Hangman hangman = new HangmanTraditional(wordList);
+			return hangman;
+		} else {
+			Hangman hangman = new HangmanEvil(wordList);
+			return hangman;
+		}
 	}
 	
 	
@@ -38,7 +44,7 @@ public class HangmanGame {
 	 */
 	private void playGame(String fileName) {
 		
-		//create hangman directory -WE NEED TO CHANGE TO DICTIONARY READER
+		//create hangman directory
 		ArrayList<String> wordList = DictionaryReader.readWordsFromDictionary(fileName);
 		
 		boolean gameOver = false;
@@ -69,7 +75,6 @@ public class HangmanGame {
 	
 	/**
 	 * Play a single game of the given hangman
-	 * IS THIS DEBUG?? -Ben
 	 * @param hangman to play
 	 * @param scanner for user input
 	 */
@@ -80,7 +85,6 @@ public class HangmanGame {
 		
 		hangman.pickWord();
 		
-		//I'M REALLY NOT SURE WHAT THIS DOES - Ben
 		this.printRound(hangman, "Guess a letter");
 		
 		while(!gameWon) {
@@ -123,10 +127,8 @@ public class HangmanGame {
 		System.out.println(hangman.incorrectGuesses);
 		System.out.println();
 		
+		//DEBUG PRINT
 		hangman.printWord();
-		
-		//DO NOT USE THIS DEBUG: WILL STALL THE GAME
-//		hangman.printWordList();
 		
 		System.out.println(message);
 		
@@ -136,8 +138,13 @@ public class HangmanGame {
 
 
 	public static void main(String[] args) {
-		String wordsClean = "words_clean.txt";
+		
+		
+		//DEBUG TEXT
+//		String wordsClean = "words_clean.txt";
+		
 		String words = "words.txt";
+		
 		HangmanGame hangmanGame = new HangmanGame();
 		
 		//IF YOU WANT TO PLAY THE GAME WITH A SMALLER LIST - UNCOMMENT THIS/COMMENT OUT LOWER LINE:
